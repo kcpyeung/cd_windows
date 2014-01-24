@@ -1,0 +1,52 @@
+<project basedir="." default="compile" name="site">
+    <condition property="isWindows">
+        <os family="windows"/>
+    </condition>
+    <condition property="isUnix">
+        <os family="unix"/>
+    </condition>
+    <path id="class.path">
+        <fileset dir="lib">
+            <include name="**/*"/>
+        </fileset>
+    </path>
+    <target name="compile">
+        <delete dir="classes"/>
+        <mkdir dir="classes"/>
+        <javac debug="true" debuglevel="lines,vars,source" destdir="classes" includeantruntime="false" includes="**/*" srcdir="sources">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+    <target depends="compile" if="isUnix" name="run-on-unix">
+        <echo message="Running on Unix..."/>
+        <exec executable="pkill">
+            <arg value="-f"/>
+            <arg value="site.Bootstrap"/>
+        </exec>
+        <sleep seconds="1"/>
+        <java classname="site.Bootstrap" classpathref="class.path" fork="true" spawn="true">
+            <classpath>
+                <pathelement location="classes/"/>
+            </classpath>
+        </java>
+        <sleep seconds="2"/>
+    </target>
+    <target depends="compile" if="isWindows" name="run-on-windows">
+        <echo message="Running on Windows..."/>
+        <exec executable="cmd">
+            <arg value="/c kill_process.bat"/>
+        </exec>
+        <sleep seconds="1"/>
+        <java classname="site.Bootstrap" classpathref="class.path" fork="true" spawn="true">
+            <classpath>
+                <pathelement location="classes/"/>
+            </classpath>
+        </java>
+        <sleep seconds="2"/>
+    </target>
+    <target depends="run-on-unix, run-on-windows" name="run">
+    </target>
+    <target depends="run" name="test">
+        <get dest="time" src="http://localhost:9090/datetime"/>
+    </target>
+</project>
