@@ -24,7 +24,7 @@
             <arg value="site.Bootstrap"/>
         </exec>
         <sleep seconds="1"/>
-        <java classname="site.Bootstrap" classpathref="class.path" fork="true" spawn="true">
+        <java classname="site.Bootstrap" classpathref="class.path" fork="true">
             <classpath>
                 <pathelement location="classes/"/>
             </classpath>
@@ -47,6 +47,6 @@
     <target depends="run-on-unix, run-on-windows" name="run">
     </target>
     <target depends="run" name="test">
-        <get dest="time" src="http://localhost:9090/datetime"/>
+        <fail />
     </target>
 </project>
