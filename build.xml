@@ -37,7 +37,7 @@
             <arg value="/c kill_process.bat"/>
         </exec>
         <sleep seconds="1"/>
-        <java classname="site.Bootstrap" classpathref="class.path" fork="true">
+        <java classname="site.Bootstrap" classpathref="class.path" fork="true" spawn="true">
             <classpath>
                 <pathelement location="classes/"/>
             </classpath>
@@ -47,6 +47,6 @@
     <target depends="run-on-unix, run-on-windows" name="run">
     </target>
     <target depends="run" name="test">
-        <fail />
+        <get src="http://localhost:9090/time" dest="time"/>
     </target>
 </project>
