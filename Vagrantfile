@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, :path => "install_chocolatey.ps1"
 
   config.vm.provision :shell, inline: "cinst puppet"
-  config.vm.provision :shell, inline: "puppet module install --force rismoney/chocolatey"
+  config.vm.provision :shell, inline: "puppet module install --force rismoney/chocolatey --module_repository=http://forge.puppetlabs.com"
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = ""
