@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 9090, host: 9090
 
   # Port forward WinRM and RDP
-  config.vm.network :forwarded_port, guest: 3389, host: 3389
-  config.vm.network :forwarded_port, guest: 5985, host: 5985, id: "winrm", auto_correct: true
+  config.vm.network :forwarded_port, guest: 3389, host: 13389
+  config.vm.network :forwarded_port, guest: 5985, host: 15985, id: "winrm", auto_correct: true
 
   config.vm.provision :shell, inline: "netsh advfirewall firewall add rule name='rule1' dir=in action=allow protocol=TCP localport=6060"
   config.vm.provision :shell, inline: "netsh advfirewall firewall add rule name='rule2' dir=in action=allow protocol=TCP localport=7070"
