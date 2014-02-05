@@ -24,7 +24,18 @@
         </java>
         <sleep seconds="2"/>
     </target>
-    <target depends="run" name="test">
-        <fail />
+    <target depends="compile" name="test">
+      <fail/>
+
+      <!--
+      <junit printsummary="yes" haltonfailure="yes">
+        <classpath refid="class.path"/>
+        <classpath>
+          <pathelement path="classes"/>
+        </classpath>
+        <formatter type="plain" usefile="false"/>
+        <test name="site.BootstrapTest"/>
+      </junit>
+      -->
     </target>
 </project>
